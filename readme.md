@@ -1,6 +1,6 @@
 ## What's this?
 
-This Chrome extension displays a randomly selected kanji when a new
+I'm pretty bad at making time to practise kanji as part of my daily routine, so I built a browser extension to help with that. This Chrome extension displays a randomly selected kanji when a new
 browser tab is opened. The user is asked to type an English translation; if
 correct, the user is redirected to Google. If incorrect, the tab closes and the
 user is appropriately ashamed.
