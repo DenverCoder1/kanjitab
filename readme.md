@@ -5,6 +5,8 @@ browser tab is opened. The user is asked to type an English translation; if
 correct, the user is redirected to Google. If incorrect, the tab closes and the
 user is appropriately ashamed.
 
+![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")
+
 ## How do I install this?
 
 Create a new folder somewhere convenient on your Mac/PC
