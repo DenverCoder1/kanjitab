@@ -38,7 +38,7 @@ translation.
 If you'd rather you were redirected to your usual homepage after correctly
 translating a kanji, edit the URL on line 16 of 'script.js' accordingly.
 
-## How can I adapt this to work with more/different kanji?
+## How can I adapt this to work with more/different kanji/scripts?
 
 The 80 kanji used to drive this extension are taken from the wikipedia entry for
 first grade kanji (https://en.wikipedia.org/wiki/Kyoiku_kanji). Each kanji in the
@@ -51,8 +51,5 @@ and corresponding meanings for all the kanji used by this extension. You can
 add, remove or modify this file to include a wider/narrower/different range of
 kanji as long as you don't mess with the underlying structure of the JSON.
 
-## How can I adapt this to work with different scripts?
-
 Maybe you'd like to use this script to learn cuneiform, or Arabic script, or
-Cyrillic. That's cool too! Just follow the same process described under the last
-heading.
+Cyrillic. That's cool too! Just follow the same process as above.
