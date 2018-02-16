@@ -5,7 +5,7 @@ browser tab is opened. The user is asked to type an English translation; if
 correct, the user is redirected to Google. If incorrect, the tab closes and the
 user is appropriately ashamed.
 
-!(https://github.com/nomblr/kanjitab/screenshot.jpg "Screenshot")
+!(https://github.com/nomblr/kanjitab/blob/master/screenshot.jpg "Screenshot")
 
 ## How do I install this?
 
