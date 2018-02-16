@@ -11,7 +11,7 @@ user is appropriately ashamed.
 
 Create a new folder somewhere convenient on your Mac/PC
 
-Download all the files in this repo to that folder
+Download all the files in the 'extension' folder in this repo, to that folder
 
 Fire up Chrome and go to 'Preferences -> Extensions'
 
