@@ -1,3 +1,7 @@
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 $.getJSON("kanji.json", function(json) {
     var jsonLength = Object.keys(json).length;
     var kanjiIdx = Math.floor(Math.random() * (jsonLength + 1));
@@ -10,7 +14,9 @@ $.getJSON("kanji.json", function(json) {
 
         if (validTranslations.indexOf(userTranslation)==-1){
           // fail condition
-          window.close();
+          await sleep(5000);
+          document.getElementById('subtitle-heading').innerHTML = "oops, the correct translation is: " + validTranslations.join(' or ') + "!";
+          // window.close();
         } else {
           // success condition
           window.location.replace("http://www.google.com");
