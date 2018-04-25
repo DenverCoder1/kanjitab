@@ -1,8 +1,4 @@
-function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
-
-$.getJSON("kanji.json", function(json) {
+$.getJSON("hiragana.json", function(json) {
     var jsonLength = Object.keys(json).length;
     var kanjiIdx = Math.floor(Math.random() * (jsonLength + 1));
     document.getElementById('kanji-text').innerHTML = json[kanjiIdx]['code']
@@ -14,9 +10,8 @@ $.getJSON("kanji.json", function(json) {
 
         if (validTranslations.indexOf(userTranslation)==-1){
           // fail condition
-          await sleep(5000);
-          document.getElementById('subtitle-heading').innerHTML = "oops, the correct translation is: " + validTranslations.join(' or ') + "!";
-          // window.close();
+          // document.getElementById('subtitle-heading').innerHTML = "oops, the correct translation is: " + validTranslations.join(' or ') + "!";
+          window.close();
         } else {
           // success condition
           window.location.replace("http://www.google.com");
