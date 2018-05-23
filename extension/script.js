@@ -3,7 +3,7 @@ function loadKanji() {
     //var jsonLength = Object.keys(json).length;
     var numOfKanji = document.getElementById("numOfKanji").value;
     var jsonLength = parseInt(numOfKanji)-1;
-    setCookie("numOfKanji", numOfKanji, 30);
+    setCookie("numOfKanji", numOfKanji, 60);
     var tries = 3;
     var kanjiIdx = Math.floor(Math.random() * (jsonLength + 1));
     document.getElementById('kanji-text').innerHTML = json[kanjiIdx]['code']
