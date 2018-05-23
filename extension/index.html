@@ -17,23 +17,31 @@
     <!-- Custom styles for this template -->
     <link href="style.css" rel="stylesheet">
 
+    <!-- Link to scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="script-new2.js"></script>
+    <script src="setGetCookies.js"></script>
+
   </head>
 
   <body>
 
     <div class="container-fluid text-center" id='search-bar-div'>
 
-      <h1 id='title-heading'>translate the kana</h1>
+      <h1 id='title-heading'>translate the kanji</h1>
       <h1 id='kanji-text'></h1>
-      <form id='kanji-form' action="checkTranslation">
-        <input id='kanji-input' type="text" size="35" placeholder="type translation and hit enter">
+      <form id='kanji-form' action="#checkTranslation">
+        <input id='kanji-input' type="text" size="35" placeholder="">
       </form>
-      <h3 id='subtitle-heading'>or this tab closes!</h3>
+      <h3 id='subtitle-heading'>type translation and hit enter</h3>
+      <h6 style="color:#bbbbbb" id="toggleSettings">click here for settings</h6>
+      <div id="settings" style="display:none;">
+        <h3 style="color:rgb(219, 120, 184)">settings</h3>
+        <span>Number of Kanji:</span>
+        <input type="text" id="numOfKanji" value="2200"/>
+        <button id="reloadButton">Reload</button>
+      </div>
     </div>
-
-    <!-- Link to scripts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="script.js"></script>
 
   </body>
 

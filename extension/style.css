@@ -1,3 +1,11 @@
+body {
+  text-align: center;
+  font-size:170%;
+  /* padding-top: 5%; */
+  /*color: rgb(216, 166, 199);*/
+  font-family: 'Patua One', cursive;
+  /* font-family: 'Abril Fatface', cursive; */
+}
 
 #title-heading{
   text-align: center;
@@ -33,4 +41,6 @@ h3{
   border: 0;
   color: gray;
   border-bottom: 1.5px solid #ccc;
+  font-size:28px;
 }
+
