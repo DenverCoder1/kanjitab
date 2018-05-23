@@ -39,11 +39,11 @@ function showHideSettings(){
   var settings = document.getElementById("settings").style.display == "block";
   if (settings) {
     document.getElementById("settings").style.display = "none";
-    document.getElementById("pressEsc").style.display = "block";
+    document.getElementById("toggleSettings").style.display = "block";
   }
   else {
     document.getElementById("settings").style.display = "block";
-    document.getElementById("pressEsc").style.display = "none";
+    document.getElementById("toggleSettings").style.display = "none";
   }
 }
 
