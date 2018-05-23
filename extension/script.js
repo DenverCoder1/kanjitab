@@ -28,7 +28,7 @@ function loadKanji() {
         } else {
           // success condition
           document.getElementById('subtitle-heading').innerHTML = "Correct!";
-          setTimeout(function(){window.location.replace("http://www.google.com")}, 900);
+          setTimeout(function(){window.location.replace("http://www.google.com")}, 600);
         }
 
     });
