@@ -2,9 +2,9 @@ body {
   text-align: center;
   font-size:170%;
   /* padding-top: 5%; */
-  /*color: rgb(216, 166, 199);*/
   font-family: 'Patua One', cursive;
   /* font-family: 'Abril Fatface', cursive; */
+  background: #101010;
 }
 
 #title-heading{
@@ -29,7 +29,7 @@ h3{
   text-align: center;
   font-size: 200pt;
   /* padding-top: 5%; */
-  color: rgb(81, 83, 86);
+  color: rgb(143, 147, 154); /*color: rgb(81, 83, 86);*/
   font-family: 'Patua One', cursive;
   /* font-family: 'Abril Fatface', cursive; */
 }
@@ -39,8 +39,15 @@ h3{
   padding: 10px;
   background-color: transparent;
   border: 0;
-  color: gray;
+  color: #bbb; /*color: gray;*/
   border-bottom: 1.5px solid #ccc;
   font-size:28px;
+}
+
+#kanji-input:focus{
+  outline: none !important;
+  border: 1px solid #ccc;
+  border-bottom: 1.5px solid #ccc;
+  box-shadow: 0 0 5px #ccc;
 }
 
