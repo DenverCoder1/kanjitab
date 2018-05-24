@@ -1,5 +1,5 @@
 function loadKanji() {
-  $.getJSON("rtkkanji.json", function(json) {
+  $.getJSON(characterSet, function(json) {
     changeFontFamily();
     var jsonLength = Object.keys(json).length;
     document.getElementById("kanji-input").value = "";
@@ -13,6 +13,7 @@ function loadKanji() {
     var customPage = document.getElementById("customPage").value;
     var fontFamily = $("#fontFamily").children("option").filter(":selected").text();
     var fontFamilyInput = document.getElementById("fontFamilyInput").value;
+    var characterSet = document.getElementById("characterSet").value;
     if (minFrame < 1) {minFrame = 1;}
     if (maxFrame > jsonLength) {maxFrame = jsonLength;}
     setCookie("minFrame", minFrame, 180);
@@ -24,6 +25,7 @@ function loadKanji() {
     setCookie("customPage", customPage, 180);
     setCookie("fontFamily", fontFamily, 180);
     setCookie("fontFamilyInput", fontFamilyInput, 180);
+    setCookie("characterSet", characterSet, 180);
     var numOfKanji = maxFrame - minFrame;
     var kanjiIdx = Math.floor(Math.random() * (numOfKanji + 1));
     kanjiIdx += minFrame - 1;
@@ -95,6 +97,17 @@ function changeFontFamily(){
   document.getElementById("kanji-text").style.fontFamily = document.getElementById("fontFamilyInput").value;
 }
 
+function changeCharacterSet() {
+  characterSet = document.getElementById("characterSet").value;
+  $.getJSON(characterSet, function(json) {
+    var jsonLength = Object.keys(json).length;
+    document.getElementById("minFrame").value = 1;
+    document.getElementById("maxFrame").value = jsonLength;
+    setCookie("minFrame", minFrame, 180);
+    setCookie("maxFrame", maxFrame, 180);
+  });
+}
+
 function checkCookie() {
     var minFrame = getCookie("minFrame") == "" ? 1 : getCookie("minFrame");
     var maxFrame = getCookie("maxFrame") == "" ? 2200 : getCookie("maxFrame");
@@ -105,6 +118,7 @@ function checkCookie() {
     var customPage = getCookie("customPage") == "" ? "http://www.google.com" : getCookie("customPage");
     var fontFamily = getCookie("fontFamily") == "" ? "Default" : getCookie("fontFamily");
     var fontFamilyInput = getCookie("fontFamilyInput") == "" ? "" : getCookie("fontFamilyInput");
+    characterSet = getCookie("characterSet") == "" ? "rtkkanji.json" : getCookie("characterSet");
     document.getElementById("minFrame").value = minFrame;
     document.getElementById("maxFrame").value = maxFrame;
     document.getElementById("ifCorrect").value = ifCorrect;
@@ -114,6 +128,7 @@ function checkCookie() {
     document.getElementById("customPage").value = customPage;
     document.getElementById("fontFamily").value = fontFamily;
     document.getElementById("fontFamilyInput").value = fontFamilyInput;
+    document.getElementById("characterSet").value = characterSet;
     customPageDiv();
     changeFontFamily();
 }
@@ -123,6 +138,7 @@ function setup() {
   document.getElementById('toggleSettings').onclick = function () {showHideSettings();};
   document.getElementById('ifCorrect').onchange = function () {customPageDiv();};
   document.getElementById('fontFamily').onchange = function () {changeFontFamily();};
+  document.getElementById('characterSet').onchange = function () {changeCharacterSet();};
   $("#kanji-input").focus();
   checkCookie();
   loadKanji();
