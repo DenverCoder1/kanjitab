@@ -4,6 +4,16 @@ body {
   /* padding-top: 5%; */
   font-family: 'Patua One', cursive;
   /* font-family: 'Abril Fatface', cursive; */
+  background: #f6f6f6;
+  color: #333;
+}
+
+body.light {
+  background: #f6f6f6;
+  color: #333;
+}
+
+body.dark {
   background: #101010;
   color: #ccc;
 }
@@ -13,10 +23,11 @@ input, button, select {
   margin: 4px 3px;
   text-align: center;
   border-radius: 3px;
+  border: 1px solid #bbb;
 }
 
 input, select {
-  min-width: 220px;
+  min-width: 226px;
 }
 
 #title-heading{
@@ -41,26 +52,40 @@ h3{
   text-align: center;
   font-size: 200pt;
   /* padding-top: 5%; */
-  color: rgb(143, 147, 154); /*color: rgb(81, 83, 86);*/
+  color: #777; /*color: rgb(81, 83, 86);*/
   font-family: 'Patua One', cursive;
   /*font-family: 'Abril Fatface', cursive;*/
 }
 
-#kanji-input{
+#kanji-input {
   text-align: center;
   padding: 10px;
   background-color: transparent;
-  border: 0;
-  color: #bbb; /*color: gray;*/
-  border-bottom: 1.5px solid #ccc;
+  /*border: 0;*/
+  /*border-bottom: 1.5px solid #ccc;*/
   font-size:28px;
+  outline: none !important;
+}
+
+#kanji-input.dark {
+  color: #bbb;
+  border: 1px solid #333;
+  border-bottom: 1.5px solid #333;
+  box-shadow: 0 0 5px #333;
+}
+
+#kanji-input.light {
+  color: #777;
+  border: 1px solid #ccc;
+  border-bottom: 1.5px solid #ccc;
+  box-shadow: 0 0 5px #ccc;
 }
 
 #kanji-input:focus{
   outline: none !important;
-  border: 1px solid #ccc;
-  border-bottom: 1.5px solid #ccc;
-  box-shadow: 0 0 5px #ccc;
+  border: 1px solid #aaa;
+  border-bottom: 1.5px solid #aaa;
+  box-shadow: 0 0 5px #aaa;
 }
 
 .setting {
@@ -76,3 +101,8 @@ h3{
     height: 0;
     overflow: hidden;
   }
+
+input:invalid {
+  border: 1px solid #ff0000;
+  box-shadow: 0px 0px 9px #F00;
+}

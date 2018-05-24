@@ -3,7 +3,18 @@ function loadKanji() {
     changeFontFamily();
     var jsonLength = Object.keys(json).length;
     document.getElementById("kanji-input").value = "";
-    document.getElementById('subtitle-heading').innerHTML = "type the translation above and hit enter";
+    if (json[0]['onyomi'] != undefined) {
+      document.getElementById('title-heading').innerHTML = "read the kanji";
+      document.getElementById('subtitle-heading').innerHTML = "type an On or Kun reading above and hit enter";
+    }
+    else if (json[0]['romanization'] != undefined) {
+      document.getElementById('title-heading').innerHTML = "read the kana";
+      document.getElementById('subtitle-heading').innerHTML = "type the pronunciation above and hit enter";
+    }
+    else {
+      document.getElementById('title-heading').innerHTML = "translate the kanji";
+      document.getElementById('subtitle-heading').innerHTML = "type the translation above and hit enter";
+    }
     var minFrame = document.getElementById("minFrame").value;
     var maxFrame = document.getElementById("maxFrame").value;
     var ifCorrect = document.getElementById("ifCorrect").value;
@@ -15,7 +26,12 @@ function loadKanji() {
     var fontFamilyInput = document.getElementById("fontFamilyInput").value;
     var characterSet = document.getElementById("characterSet").value;
     if (minFrame < 1) {minFrame = 1;}
+    if (maxFrame < 1) {maxFrame = 1;}
+    if (minFrame > maxFrame) {minFrame = maxFrame;}
+    if (minFrame > jsonLength) {minFrame = jsonLength;}
     if (maxFrame > jsonLength) {maxFrame = jsonLength;}
+    document.getElementById("minFrame").value = minFrame;
+    document.getElementById("maxFrame").value = maxFrame;
     setCookie("minFrame", minFrame, 180);
     setCookie("maxFrame", maxFrame, 180);
     setCookie("ifCorrect", ifCorrect, 180);
@@ -35,7 +51,25 @@ function loadKanji() {
     document.getElementById("kanji-form").addEventListener("submit", function(event){
         event.preventDefault();
         var userTranslation = $("#kanji-input").val().toLowerCase().trim();
-        var validTranslations = json[kanjiIdx]['meaning'].toLowerCase().split(', ');
+        var validTranslations;
+        if (json[0]['meaning'] != undefined) {
+          validTranslations = json[kanjiIdx]['meaning'].toLowerCase().split(', ');
+        }
+
+        if (json[0]['onyomi'] != undefined) {
+          validTranslations = [];
+          validTranslations = validTranslations.concat(json[kanjiIdx]['onyomi'].toLowerCase().split(', '));
+          validTranslations = validTranslations.concat(json[kanjiIdx]['onromaji'].toLowerCase().split(', '));
+          validTranslations = validTranslations.concat(json[kanjiIdx]['onhiragana'].toLowerCase().split(', '));
+          validTranslations = validTranslations.concat(json[kanjiIdx]['kunyomi'].toLowerCase().split(', '));
+          validTranslations = validTranslations.concat(json[kanjiIdx]['kunromaji'].toLowerCase().split(', '));
+        }
+
+        if (json[0]['romanization'] != undefined) {
+          validTranslations = json[kanjiIdx]['romanization'].toLowerCase().split(', ');
+        }
+
+        console.log(validTranslations)
 
         if (validTranslations.indexOf(userTranslation)==-1){
           // fail condition
@@ -99,12 +133,6 @@ function changeFontFamily(){
 
 function changeCharacterSet() {
   characterSet = document.getElementById("characterSet").value;
-  if (characterSet == "rtkkanji.json") {
-    document.getElementById('title-heading').innerHTML = "translate the kanji";
-  }
-  else {
-    document.getElementById('title-heading').innerHTML = "translate the kana";
-  }
   $.getJSON(characterSet, function(json) {
     var jsonLength = Object.keys(json).length;
     document.getElementById("minFrame").value = 1;
@@ -117,15 +145,8 @@ function changeCharacterSet() {
 function changeTheme() {
   theme = document.getElementById("theme").value;
   setCookie("theme", theme, 180);
-  var body = document.getElementsByTagName("body")[0];
-  if (theme=="light") {
-    body.style.backgroundColor = "#f2f2f2";
-    body.style.color = "#333";
-  }
-  else if (theme=="dark") {
-    body.style.backgroundColor = "#101010";
-    body.style.color = "#ccc";    
-  }
+  document.getElementsByTagName("body")[0].className = theme;
+  document.getElementById("kanji-input").className = theme;
 }
 
 function showHideSettings() {
@@ -139,6 +160,37 @@ function showHideSettings() {
 document.getElementById("plusMinus").innerHTML=document.getElementById("plusMinus").innerHTML=='+'?'−':'+';
 }
 
+function validateSettings() {
+  var em = "";
+  var minFrame = document.getElementById("minFrame").value;
+  var maxFrame = document.getElementById("maxFrame").value;
+  var ifCorrect = document.getElementById("ifCorrect").value;
+  var ifIncorrect = document.getElementById("ifIncorrect").value;
+  var attempts = document.getElementById("attempts").value;
+  var delay = document.getElementById("delay").value;
+  var customPage = document.getElementById("customPage").value;
+  var fontFamily = $("#fontFamily").children("option").filter(":selected").text();
+  var fontFamilyInput = document.getElementById("fontFamilyInput").value;
+  var characterSet = document.getElementById("characterSet").value;
+  var theme = document.getElementById("theme").value;
+  if (minFrame < 0) {em+="· Min frame must be greater than 0.<br/>"}
+  if (maxFrame < 0) {em+="· Max frame must be greater than 0.<br/>"}
+  if (maxFrame < minFrame) {em+="· Max frame must be greater than or equal to min frame.<br/>"}
+  if (attempts < 0) {em+="· Attempts must be greater than or equal to 1.<br/>"}
+  if (delay < 0) {em+="· Delay must be greater than or equal to 0.<br/>"}
+  if (ifCorrect == 2) {
+    var pattern = new RegExp('^(https?:\\/\\/)'+ // protocol
+    '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.?)+[a-z]{2,}|'+ // domain name
+    '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
+    '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
+    '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
+    '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
+    if (!pattern.test(customPage)) {em+="· Custom redirect URL is invalid.<br/>"}
+  }
+  document.getElementById("errorMessage").innerHTML = em;
+  if (em == "") {loadKanji();}
+}
+
 function checkCookie() {
     var minFrame = getCookie("minFrame") == "" ? 1 : getCookie("minFrame");
     var maxFrame = getCookie("maxFrame") == "" ? 2200 : getCookie("maxFrame");
@@ -149,7 +201,7 @@ function checkCookie() {
     var customPage = getCookie("customPage") == "" ? "http://www.google.com" : getCookie("customPage");
     var fontFamily = getCookie("fontFamily") == "" ? "Default" : getCookie("fontFamily");
     var fontFamilyInput = getCookie("fontFamilyInput") == "" ? "" : getCookie("fontFamilyInput");
-    characterSet = getCookie("characterSet") == "" ? "rtkkanji.json" : getCookie("characterSet");
+    characterSet = getCookie("characterSet") == "" ? "rtkKanji.json" : getCookie("characterSet");
     var theme = getCookie("theme") == "" ? "light" : getCookie("theme");
     document.getElementById("minFrame").value = minFrame;
     document.getElementById("maxFrame").value = maxFrame;
@@ -168,7 +220,7 @@ function checkCookie() {
 }
 
 function setup() {
-  document.getElementById('reloadButton').onclick = function () {loadKanji();};
+  document.getElementById('reloadButton').onclick = function () {validateSettings();};
   document.getElementById('toggleSettings').onclick = function () {showHideSettings();};
   document.getElementById('ifCorrect').onchange = function () {customPageDiv();};
   document.getElementById('fontFamily').onchange = function () {changeFontFamily();};
@@ -176,7 +228,7 @@ function setup() {
   document.getElementById('theme').onchange = function () {changeTheme();};
   $("#kanji-input").focus();
   checkCookie();
-  loadKanji();
+  validateSettings();
 }
 
 window.onload = setTimeout(setup, 1);
