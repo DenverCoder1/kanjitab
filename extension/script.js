@@ -128,6 +128,17 @@ function changeTheme() {
   }
 }
 
+function showHideSettings() {
+    var growDiv = document.getElementById('settings');
+    if (growDiv.clientHeight) {
+      growDiv.style.height = 0;
+    } else {
+      var wrapper = document.querySelector('.measuringWrapper');
+      growDiv.style.height = wrapper.clientHeight + "px";
+    }
+document.getElementById("plusMinus").innerHTML=document.getElementById("plusMinus").innerHTML=='+'?'−':'+';
+}
+
 function checkCookie() {
     var minFrame = getCookie("minFrame") == "" ? 1 : getCookie("minFrame");
     var maxFrame = getCookie("maxFrame") == "" ? 2200 : getCookie("maxFrame");

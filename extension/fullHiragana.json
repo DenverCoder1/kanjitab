@@ -28,7 +28,7 @@
 {"code": "&#12385;", "meaning": "chi"},
 {"code": "&#12386;", "meaning": "ji"},
 {"code": "&#12388;", "meaning": "tsu"},
-{"code": "&#12389;", "meaning": "zu, dzu"},
+{"code": "&#12389;", "meaning": "dzu, zu"},
 {"code": "&#12390;", "meaning": "te"},
 {"code": "&#12391;", "meaning": "de"},
 {"code": "&#12392;", "meaning": "to"},
@@ -67,5 +67,5 @@
 {"code": "&#12428;", "meaning": "re"},
 {"code": "&#12429;", "meaning": "ro"},
 {"code": "&#12431;", "meaning": "wa"},
-{"code": "&#12434;", "meaning": "wo, o"},
+{"code": "&#12434;", "meaning": "o, wo"},
 {"code": "&#12435;", "meaning": "n, nn"}]
