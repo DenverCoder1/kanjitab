@@ -33,13 +33,68 @@
       <form id='kanji-form' action="#checkTranslation">
         <input id='kanji-input' type="text" size="35" placeholder="" autocomplete=off>
       </form>
-      <h3 id='subtitle-heading'>type translation and hit enter</h3>
-      <h6 style="color:#bbbbbb" id="toggleSettings">click here for settings</h6>
-      <div id="settings" style="display:none;">
+      <h3 id='subtitle-heading'>type the translation above and hit enter</h3>
+      <h5 style="color:#bbbbbb" id="toggleSettings">click here for settings</h5>
+      <div id="settings" style="display: none;">
         <h3 style="color:rgb(219, 120, 184)">settings</h3>
-        <span>Number of Kanji:</span>
-        <input type="text" id="numOfKanji" value="2200"/>
-        <button id="reloadButton">Reload</button>
+        <!-- <span>Number of Kanji:</span>
+        <input type="text" id="numOfKanji" value="2200"/> -->
+        <div class="setting">
+        <span>min frame number:</span><br/>
+        <input type="number" id="minFrame" min="1"/>
+        </div>
+        <div class="setting">
+        <span>max frame number:</span><br/>
+        <input type="number" id="maxFrame" min="1"/>
+        </div>
+        <div class="setting">
+        <span>when correct:</span><br/>
+        <select id="ifCorrect">
+          <option value=1>Redirect to Google</option>
+          <option value=2>Redirect to custom page</option>
+          <option value=3>Display another character</option>
+        </select>
+        </div>
+        <div class="setting" id="customPageDiv" style="display:none;">
+          <span>redirect page:</span><br/>
+          <input type="text" id="customPage" placeholder="http://www.google.com" value="http://www.google.com"/>
+        </div> 
+        <div class="setting">
+        <span>delay (milliseconds):</span><br/>
+        <input type="number" id="delay" min="0"/>
+        </div>
+        <div class="setting">
+        <span>when incorrect:</span><br/>
+        <select id="ifIncorrect">
+          <option value=1>Close tab</option>
+          <option value=2>Show answer</option>
+        </select>
+        </div>
+        <div class="setting">
+        <span>number of attempts:</span><br/>
+        <input type="number" id="attempts" min="1"/>
+        </div>
+        <div class="setting">
+        <span>font family:</span><br/>
+        <select id="fontFamily">
+          <option value="Default">Default</option>
+          <option value="Yu Mincho">Yu Mincho</option>
+          <option value="Yu Gothic">Yu Gothic</option>
+          <option value="MS Mincho">MS Mincho</option>
+          <option value="MS Gothic">MS Gothic</option>
+          <option value="Meiryo">Meiryo</option>
+          <option value="Hiragino Mincho ProN">Hiragino Mincho ProN</option>
+          <option value="Hiragino Kaku Gothic Pro">Hiragino Kaku Gothic Pro</option>
+          <option value="Osaka">Osaka</option>
+          <option value="Custom">Custom</option>
+        </select>
+        </div>
+        <div class="setting" id="fontFamilyInputDiv" style="display:none">
+        <span>custom font name:</span><br/>
+        <input type="text" id="fontFamilyInput" placeholder="Yu Mincho"/>
+        </div>
+        <br/>
+        <button id="reloadButton">Save & Reload</button>
       </div>
     </div>
 

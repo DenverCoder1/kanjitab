@@ -5,6 +5,18 @@ body {
   font-family: 'Patua One', cursive;
   /* font-family: 'Abril Fatface', cursive; */
   background: #101010;
+  color: #ccc;
+}
+
+input, button, select {
+  color: #333;
+  margin: 4px 3px;
+  text-align: center;
+  border-radius: 3px;
+}
+
+input, select {
+  min-width: 220px;
 }
 
 #title-heading{
@@ -31,7 +43,7 @@ h3{
   /* padding-top: 5%; */
   color: rgb(143, 147, 154); /*color: rgb(81, 83, 86);*/
   font-family: 'Patua One', cursive;
-  /* font-family: 'Abril Fatface', cursive; */
+  /*font-family: 'Abril Fatface', cursive;*/
 }
 
 #kanji-input{
@@ -51,3 +63,6 @@ h3{
   box-shadow: 0 0 5px #ccc;
 }
 
+.setting {
+  display: inline-block;
+}
