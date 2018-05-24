@@ -10,7 +10,12 @@ body {
 
 body.light {
   background: #f6f6f6;
-  color: #333;
+  color: #515356;
+}
+
+body.medium {
+  background: #5f5f5f;
+  color: #ccc;
 }
 
 body.dark {
@@ -52,7 +57,7 @@ h3{
   text-align: center;
   font-size: 200pt;
   /* padding-top: 5%; */
-  color: #777; /*color: rgb(81, 83, 86);*/
+  /*color: #777;*/ /*color: rgb(81, 83, 86);*/
   font-family: 'Patua One', cursive;
   /*font-family: 'Abril Fatface', cursive;*/
 }
@@ -75,7 +80,14 @@ h3{
 }
 
 #kanji-input.light {
-  color: #777;
+  color: #515356;
+  border: 1px solid #ccc;
+  border-bottom: 1.5px solid #ccc;
+  box-shadow: 0 0 5px #ccc;
+}
+
+#kanji-input.medium {
+  color: #ccc;
   border: 1px solid #ccc;
   border-bottom: 1.5px solid #ccc;
   box-shadow: 0 0 5px #ccc;

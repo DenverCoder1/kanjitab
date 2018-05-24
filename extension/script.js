@@ -15,12 +15,12 @@ function loadKanji() {
       document.getElementById('title-heading').innerHTML = "translate the kanji";
       document.getElementById('subtitle-heading').innerHTML = "type the translation above and hit enter";
     }
-    var minFrame = document.getElementById("minFrame").value;
-    var maxFrame = document.getElementById("maxFrame").value;
-    var ifCorrect = document.getElementById("ifCorrect").value;
-    var ifIncorrect = document.getElementById("ifIncorrect").value;
-    var attempts = document.getElementById("attempts").value;
-    var delay = document.getElementById("delay").value;
+    var minFrame = parseInt(document.getElementById("minFrame").value);
+    var maxFrame = parseInt(document.getElementById("maxFrame").value);
+    var ifCorrect = parseInt(document.getElementById("ifCorrect").value);
+    var ifIncorrect = parseInt(document.getElementById("ifIncorrect").value);
+    var attempts = parseInt(document.getElementById("attempts").value);
+    var delay = parseInt(document.getElementById("delay").value);
     var customPage = document.getElementById("customPage").value;
     var fontFamily = $("#fontFamily").children("option").filter(":selected").text();
     var fontFamilyInput = document.getElementById("fontFamilyInput").value;
@@ -80,7 +80,8 @@ function loadKanji() {
           else {
             // document.getElementById('subtitle-heading').innerHTML = "oops, the correct translation is: " + validTranslations.join(' or ') + "!";
             if (ifIncorrect==1) {window.close();}
-            else if (ifIncorrect==2) {document.getElementById('subtitle-heading').innerHTML = "Incorrect. The correct translation is: " + validTranslations[0] + ".";}
+            else if (ifIncorrect==2 && json[0]['onyomi'] != undefined) {document.getElementById('subtitle-heading').innerHTML = "Incorrect. The answer is: " + validTranslations.join(' or ') + ".";}
+            else if (ifIncorrect==2) {document.getElementById('subtitle-heading').innerHTML = "Incorrect. The answer is: " + validTranslations[0] + ".";}
           }
         } else {
           // success condition
@@ -162,17 +163,12 @@ document.getElementById("plusMinus").innerHTML=document.getElementById("plusMinu
 
 function validateSettings() {
   var em = "";
-  var minFrame = document.getElementById("minFrame").value;
-  var maxFrame = document.getElementById("maxFrame").value;
-  var ifCorrect = document.getElementById("ifCorrect").value;
-  var ifIncorrect = document.getElementById("ifIncorrect").value;
-  var attempts = document.getElementById("attempts").value;
-  var delay = document.getElementById("delay").value;
+  var minFrame = parseInt(document.getElementById("minFrame").value);
+  var maxFrame = parseInt(document.getElementById("maxFrame").value);
+  var ifCorrect = parseInt(document.getElementById("ifCorrect").value);
+  var attempts = parseInt(document.getElementById("attempts").value);
+  var delay = parseInt(document.getElementById("delay").value);
   var customPage = document.getElementById("customPage").value;
-  var fontFamily = $("#fontFamily").children("option").filter(":selected").text();
-  var fontFamilyInput = document.getElementById("fontFamilyInput").value;
-  var characterSet = document.getElementById("characterSet").value;
-  var theme = document.getElementById("theme").value;
   if (minFrame < 0) {em+="· Min frame must be greater than 0.<br/>"}
   if (maxFrame < 0) {em+="· Max frame must be greater than 0.<br/>"}
   if (maxFrame < minFrame) {em+="· Max frame must be greater than or equal to min frame.<br/>"}
@@ -197,7 +193,7 @@ function checkCookie() {
     var ifCorrect = getCookie("ifCorrect") == "" ? 1 : getCookie("ifCorrect");
     var ifIncorrect = getCookie("ifIncorrect") == "" ? 2 : getCookie("ifIncorrect");
     var attempts = getCookie("attempts") == "" ? 1 : getCookie("attempts");
-    var delay = getCookie("delay") == "" ? 700 : getCookie("delay");
+    var delay = getCookie("delay") == "" ? 400 : getCookie("delay");
     var customPage = getCookie("customPage") == "" ? "http://www.google.com" : getCookie("customPage");
     var fontFamily = getCookie("fontFamily") == "" ? "Default" : getCookie("fontFamily");
     var fontFamilyInput = getCookie("fontFamilyInput") == "" ? "" : getCookie("fontFamilyInput");
