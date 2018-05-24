@@ -99,6 +99,12 @@ function changeFontFamily(){
 
 function changeCharacterSet() {
   characterSet = document.getElementById("characterSet").value;
+  if (characterSet == "rtkkanji.json") {
+    document.getElementById('title-heading').innerHTML = "translate the kanji";
+  }
+  else {
+    document.getElementById('title-heading').innerHTML = "translate the kana";
+  }
   $.getJSON(characterSet, function(json) {
     var jsonLength = Object.keys(json).length;
     document.getElementById("minFrame").value = 1;
@@ -106,6 +112,20 @@ function changeCharacterSet() {
     setCookie("minFrame", minFrame, 180);
     setCookie("maxFrame", maxFrame, 180);
   });
+}
+
+function changeTheme() {
+  theme = document.getElementById("theme").value;
+  setCookie("theme", theme, 180);
+  var body = document.getElementsByTagName("body")[0];
+  if (theme=="light") {
+    body.style.backgroundColor = "#f2f2f2";
+    body.style.color = "#333";
+  }
+  else if (theme=="dark") {
+    body.style.backgroundColor = "#101010";
+    body.style.color = "#ccc";    
+  }
 }
 
 function checkCookie() {
@@ -119,6 +139,7 @@ function checkCookie() {
     var fontFamily = getCookie("fontFamily") == "" ? "Default" : getCookie("fontFamily");
     var fontFamilyInput = getCookie("fontFamilyInput") == "" ? "" : getCookie("fontFamilyInput");
     characterSet = getCookie("characterSet") == "" ? "rtkkanji.json" : getCookie("characterSet");
+    var theme = getCookie("theme") == "" ? "light" : getCookie("theme");
     document.getElementById("minFrame").value = minFrame;
     document.getElementById("maxFrame").value = maxFrame;
     document.getElementById("ifCorrect").value = ifCorrect;
@@ -129,8 +150,10 @@ function checkCookie() {
     document.getElementById("fontFamily").value = fontFamily;
     document.getElementById("fontFamilyInput").value = fontFamilyInput;
     document.getElementById("characterSet").value = characterSet;
+    document.getElementById("theme").value = theme;
     customPageDiv();
     changeFontFamily();
+    changeTheme();
 }
 
 function setup() {
@@ -139,6 +162,7 @@ function setup() {
   document.getElementById('ifCorrect').onchange = function () {customPageDiv();};
   document.getElementById('fontFamily').onchange = function () {changeFontFamily();};
   document.getElementById('characterSet').onchange = function () {changeCharacterSet();};
+  document.getElementById('theme').onchange = function () {changeTheme();};
   $("#kanji-input").focus();
   checkCookie();
   loadKanji();
