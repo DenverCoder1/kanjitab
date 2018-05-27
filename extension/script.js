@@ -1,6 +1,5 @@
-function loadKanji() {
+function loadKanji(minFrame,maxFrame,ifCorrect,ifIncorrect,attempts,delay,customPage,fontFamily,fontFamilyInput,characterSet) {
   $.getJSON(characterSet, function(json) {
-    changeFontFamily();
     var jsonLength = Object.keys(json).length;
     document.getElementById("kanji-input").value = "";
     if (json[0]['onyomi'] != undefined) {
@@ -15,33 +14,10 @@ function loadKanji() {
       document.getElementById('title-heading').innerHTML = "translate the kanji";
       document.getElementById('subtitle-heading').innerHTML = "type the translation above and hit enter";
     }
-    var minFrame = parseInt(document.getElementById("minFrame").value);
-    var maxFrame = parseInt(document.getElementById("maxFrame").value);
-    var ifCorrect = parseInt(document.getElementById("ifCorrect").value);
-    var ifIncorrect = parseInt(document.getElementById("ifIncorrect").value);
-    var attempts = parseInt(document.getElementById("attempts").value);
-    var delay = parseInt(document.getElementById("delay").value);
-    var customPage = document.getElementById("customPage").value;
-    var fontFamily = $("#fontFamily").children("option").filter(":selected").text();
-    var fontFamilyInput = document.getElementById("fontFamilyInput").value;
-    var characterSet = document.getElementById("characterSet").value;
-    if (minFrame < 1) {minFrame = 1;}
-    if (maxFrame < 1) {maxFrame = 1;}
-    if (minFrame > maxFrame) {minFrame = maxFrame;}
     if (minFrame > jsonLength) {minFrame = jsonLength;}
     if (maxFrame > jsonLength) {maxFrame = jsonLength;}
     document.getElementById("minFrame").value = minFrame;
     document.getElementById("maxFrame").value = maxFrame;
-    setCookie("minFrame", minFrame, 180);
-    setCookie("maxFrame", maxFrame, 180);
-    setCookie("ifCorrect", ifCorrect, 180);
-    setCookie("ifIncorrect", ifIncorrect, 180);
-    setCookie("attempts", attempts, 180);
-    setCookie("delay", delay, 180);
-    setCookie("customPage", customPage, 180);
-    setCookie("fontFamily", fontFamily, 180);
-    setCookie("fontFamilyInput", fontFamilyInput, 180);
-    setCookie("characterSet", characterSet, 180);
     var numOfKanji = maxFrame - minFrame;
     var kanjiIdx = Math.floor(Math.random() * (numOfKanji + 1));
     kanjiIdx += minFrame - 1;
@@ -95,18 +71,6 @@ function loadKanji() {
   });
 }
 
-function showHideSettings(){
-  var settings = document.getElementById("settings").style.display == "block";
-  if (settings) {
-    document.getElementById("settings").style.display = "none";
-    document.getElementById("toggleSettings").innerHTML = "click here for settings";
-  }
-  else {
-    document.getElementById("settings").style.display = "block";
-    document.getElementById("toggleSettings").innerHTML = "click to hide settings";
-  }
-}
-
 function customPageDiv() {
   if(document.getElementById("ifCorrect").value==2) {
     document.getElementById("customPageDiv").style.display="inline-block"
@@ -114,6 +78,7 @@ function customPageDiv() {
   else {
     document.getElementById("customPageDiv").style.display="none"
   }
+  resizeSettings(1);
 }
 
 function changeFontFamily(){
@@ -130,6 +95,7 @@ function changeFontFamily(){
     document.getElementById("fontFamilyInput").value = fontFamily;
   }
   document.getElementById("kanji-text").style.fontFamily = document.getElementById("fontFamilyInput").value;
+  resizeSettings(1);
 }
 
 function changeCharacterSet() {
@@ -141,6 +107,7 @@ function changeCharacterSet() {
     setCookie("minFrame", minFrame, 180);
     setCookie("maxFrame", maxFrame, 180);
   });
+  resizeSettings(1);
 }
 
 function changeTheme() {
@@ -150,25 +117,27 @@ function changeTheme() {
   document.getElementById("kanji-input").className = theme;
 }
 
-function showHideSettings() {
-    var growDiv = document.getElementById('settings');
-    if (growDiv.clientHeight) {
-      growDiv.style.height = 0;
+function resizeSettings(stayExpanded) {
+    if (document.getElementById('settings').clientHeight == 0 || stayExpanded) {
+      document.getElementById('settings').style.height = document.querySelector('.measuringWrapper').clientHeight + "px";
     } else {
-      var wrapper = document.querySelector('.measuringWrapper');
-      growDiv.style.height = wrapper.clientHeight + "px";
+      document.getElementById('settings').style.height = 0;
     }
-document.getElementById("plusMinus").innerHTML=document.getElementById("plusMinus").innerHTML=='+'?'−':'+';
+  document.getElementById("plusMinus").innerHTML=document.getElementById("plusMinus").innerHTML=='+'?'−':'+';
 }
 
-function validateSettings() {
+function validateSettings(reload) {
   var em = "";
   var minFrame = parseInt(document.getElementById("minFrame").value);
   var maxFrame = parseInt(document.getElementById("maxFrame").value);
   var ifCorrect = parseInt(document.getElementById("ifCorrect").value);
+  var ifIncorrect = parseInt(document.getElementById("ifIncorrect").value);
   var attempts = parseInt(document.getElementById("attempts").value);
   var delay = parseInt(document.getElementById("delay").value);
   var customPage = document.getElementById("customPage").value;
+  var fontFamily = $("#fontFamily").children("option").filter(":selected").text();
+  var fontFamilyInput = document.getElementById("fontFamilyInput").value;
+  var characterSet = document.getElementById("characterSet").value;
   if (minFrame < 0) {em+="· Min frame must be greater than 0.<br/>"}
   if (maxFrame < 0) {em+="· Max frame must be greater than 0.<br/>"}
   if (maxFrame < minFrame) {em+="· Max frame must be greater than or equal to min frame.<br/>"}
@@ -184,7 +153,22 @@ function validateSettings() {
     if (!pattern.test(customPage)) {em+="· Custom redirect URL is invalid.<br/>"}
   }
   document.getElementById("errorMessage").innerHTML = em;
-  if (em == "") {loadKanji();}
+  if (em == "") {
+    console.log("settings saved")
+    setCookie("minFrame", minFrame, 9999);
+    setCookie("maxFrame", maxFrame, 9999);
+    setCookie("ifCorrect", ifCorrect, 9999);
+    setCookie("ifIncorrect", ifIncorrect, 9999);
+    setCookie("attempts", attempts, 9999);
+    setCookie("delay", delay, 9999);
+    setCookie("customPage", customPage, 9999);
+    setCookie("fontFamily", fontFamily, 9999);
+    setCookie("fontFamilyInput", fontFamilyInput, 9999);
+    setCookie("characterSet", characterSet, 9999);
+    if (reload) {
+      loadKanji(minFrame,maxFrame,ifCorrect,ifIncorrect,attempts,delay,customPage,fontFamily,fontFamilyInput,characterSet);
+    }
+  }
 }
 
 function checkCookie() {
@@ -216,15 +200,27 @@ function checkCookie() {
 }
 
 function setup() {
-  document.getElementById('reloadButton').onclick = function () {validateSettings();};
-  document.getElementById('toggleSettings').onclick = function () {showHideSettings();};
+  document.getElementById('reloadButton').onclick = function () {validateSettings(1);};
+  document.getElementById('toggleSettings').onclick = function () {resizeSettings(0);};
   document.getElementById('ifCorrect').onchange = function () {customPageDiv();};
   document.getElementById('fontFamily').onchange = function () {changeFontFamily();};
   document.getElementById('characterSet').onchange = function () {changeCharacterSet();};
   document.getElementById('theme').onchange = function () {changeTheme();};
+  document.getElementById('resetToDefaults').onclick = function () {clearCookies();checkCookie();};
+  document.getElementById("minFrame").onblur = function () {validateSettings(0);};
+  document.getElementById("maxFrame").onblur = function () {validateSettings(0);};
+  document.getElementById("ifCorrect").onblur = function () {validateSettings(0);};
+  document.getElementById("ifIncorrect").onblur = function () {validateSettings(0);};
+  document.getElementById("attempts").onblur = function () {validateSettings(0);};
+  document.getElementById("delay").onblur = function () {validateSettings(0);};
+  document.getElementById("customPage").onblur = function () {validateSettings(0);};
+  document.getElementById("fontFamily").onblur = function () {validateSettings(0);};
+  document.getElementById("fontFamilyInput").onblur = function () {validateSettings(0);};
+  document.getElementById("characterSet").onblur = function () {validateSettings(0);};
+  document.getElementById("theme").onblur = function () {validateSettings(0);};
   $("#kanji-input").focus();
   checkCookie();
-  validateSettings();
+  validateSettings(1);
 }
 
 window.onload = setTimeout(setup, 1);
