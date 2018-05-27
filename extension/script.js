@@ -55,6 +55,7 @@ function loadKanji(minFrame,maxFrame,ifCorrect,ifIncorrect,attempts,delay,custom
           }
           else {
             // document.getElementById('subtitle-heading').innerHTML = "oops, the correct translation is: " + validTranslations.join(' or ') + "!";
+            console.log(ifIncorrect);
             if (ifIncorrect==1) {window.close();}
             else if (ifIncorrect==2 && json[0]['onyomi'] != undefined) {document.getElementById('subtitle-heading').innerHTML = "Incorrect. The answer is: " + validTranslations.join(' or ') + ".";}
             else if (ifIncorrect==2) {document.getElementById('subtitle-heading').innerHTML = "Incorrect. The answer is: " + validTranslations[0] + ".";}
@@ -62,9 +63,10 @@ function loadKanji(minFrame,maxFrame,ifCorrect,ifIncorrect,attempts,delay,custom
         } else {
           // success condition
           document.getElementById('subtitle-heading').innerHTML = "Correct!";
+          console.log(ifCorrect);
           if (ifCorrect==1) {setTimeout(function(){window.location.replace("http://www.google.com")}, delay);}
           if (ifCorrect==2) {setTimeout(function(){window.location.replace(customPage)}, delay);}
-          if (ifCorrect==3) {setTimeout(function(){loadKanji();}, delay);}
+          if (ifCorrect==3) {setTimeout(function(){loadKanji(minFrame,maxFrame,ifCorrect,ifIncorrect,attempts,delay,customPage,fontFamily,fontFamilyInput,characterSet);}, delay);}
         }
 
     });
