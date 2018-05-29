@@ -142,10 +142,10 @@ function validateSettings(reload) {
   var fontFamily = $("#fontFamily").children("option").filter(":selected").text();
   var fontFamilyInput = document.getElementById("fontFamilyInput").value;
   var characterSet = document.getElementById("characterSet").value;
-  if (minFrame < 0) {em+="· Min frame must be greater than 0.<br/>"}
-  if (maxFrame < 0) {em+="· Max frame must be greater than 0.<br/>"}
+  if (minFrame < 1) {em+="· Min frame must be greater than or equal to 1.<br/>"}
+  if (maxFrame < 1) {em+="· Max frame must be greater than or equal to 1.<br/>"}
   if (maxFrame < minFrame) {em+="· Max frame must be greater than or equal to min frame.<br/>"}
-  if (attempts < 0) {em+="· Attempts must be greater than or equal to 1.<br/>"}
+  if (attempts < 1) {em+="· Attempts must be greater than or equal to 1.<br/>"}
   if (delay < 0) {em+="· Delay must be greater than or equal to 0.<br/>"}
   if (ifCorrect == 2) {
     var pattern = new RegExp('^(https?:\\/\\/)'+ // protocol
