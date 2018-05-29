@@ -80,7 +80,7 @@ function customPageDiv() {
   else {
     document.getElementById("customPageDiv").style.display="none"
   }
-  resizeSettings(1);
+  resizeSettings(true);
 }
 
 function changeFontFamily(){
@@ -97,7 +97,7 @@ function changeFontFamily(){
     document.getElementById("fontFamilyInput").value = fontFamily;
   }
   document.getElementById("kanji-text").style.fontFamily = document.getElementById("fontFamilyInput").value;
-  resizeSettings(1);
+  resizeSettings(true);
 }
 
 function changeCharacterSet() {
@@ -109,7 +109,7 @@ function changeCharacterSet() {
     setCookie("minFrame", minFrame, 180);
     setCookie("maxFrame", maxFrame, 180);
   });
-  resizeSettings(1);
+  resizeSettings(true);
 }
 
 function changeTheme() {
@@ -120,12 +120,14 @@ function changeTheme() {
 }
 
 function resizeSettings(stayExpanded) {
-    if (document.getElementById('settings').clientHeight == 0 || stayExpanded) {
+    var sHeight = document.getElementById('settings').clientHeight;
+    if ((sHeight > 0 && stayExpanded) || (sHeight == 0 && !stayExpanded)) {
       document.getElementById('settings').style.height = document.querySelector('.measuringWrapper').clientHeight + "px";
+      document.getElementById("plusMinus").innerHTML='−';
     } else {
       document.getElementById('settings').style.height = 0;
+      document.getElementById("plusMinus").innerHTML='+';
     }
-  document.getElementById("plusMinus").innerHTML=document.getElementById("plusMinus").innerHTML=='+'?'−':'+';
 }
 
 function validateSettings(reload) {
@@ -203,7 +205,7 @@ function checkCookie() {
 
 function setup() {
   document.getElementById('reloadButton').onclick = function () {validateSettings(1);};
-  document.getElementById('toggleSettings').onclick = function () {resizeSettings(0);};
+  document.getElementById('toggleSettings').onclick = function () {resizeSettings(false);};
   document.getElementById('ifCorrect').onchange = function () {customPageDiv();};
   document.getElementById('fontFamily').onchange = function () {changeFontFamily();};
   document.getElementById('characterSet').onchange = function () {changeCharacterSet();};
