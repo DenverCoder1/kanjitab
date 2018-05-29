@@ -22,7 +22,8 @@ function loadKanji(minFrame,maxFrame,ifCorrect,ifIncorrect,attempts,delay,custom
     var kanjiIdx = Math.floor(Math.random() * (numOfKanji + 1));
     kanjiIdx += minFrame - 1;
     console.log("frame: "+(kanjiIdx+1));
-    document.getElementById('kanji-text').innerHTML = json[kanjiIdx]['code']
+    document.getElementById('kanji-text').innerHTML = json[kanjiIdx]['code'];
+    var attemptsRemaining = attempts;
 
     document.getElementById("kanji-form").addEventListener("submit", function(event){
         event.preventDefault();
@@ -49,9 +50,9 @@ function loadKanji(minFrame,maxFrame,ifCorrect,ifIncorrect,attempts,delay,custom
 
         if (validTranslations.indexOf(userTranslation)==-1){
           // fail condition
-          if (attempts>1) {
+          if (attemptsRemaining>1) {
             document.getElementById('subtitle-heading').innerHTML = "Incorrect. Try again!";
-            attempts--;
+            attemptsRemaining--;
           }
           else {
             // document.getElementById('subtitle-heading').innerHTML = "oops, the correct translation is: " + validTranslations.join(' or ') + "!";
@@ -104,8 +105,14 @@ function changeCharacterSet() {
   characterSet = document.getElementById("characterSet").value;
   $.getJSON(characterSet, function(json) {
     var jsonLength = Object.keys(json).length;
-    document.getElementById("minFrame").value = 1;
-    document.getElementById("maxFrame").value = jsonLength;
+    var minFrame = parseInt(document.getElementById("minFrame").value);
+    var maxFrame = parseInt(document.getElementById("maxFrame").value);
+    if (minFrame>jsonLength) {
+      document.getElementById("minFrame").value = 1;
+    }
+    if (maxFrame>jsonLength) {
+      document.getElementById("maxFrame").value = jsonLength;
+    }
     setCookie("minFrame", minFrame, 180);
     setCookie("maxFrame", maxFrame, 180);
   });
@@ -201,30 +208,30 @@ function checkCookie() {
     customPageDiv();
     changeFontFamily();
     changeTheme();
+    validateSettings(true);
 }
 
 function setup() {
-  document.getElementById('reloadButton').onclick = function () {validateSettings(1);};
+  document.getElementById('reloadButton').onclick = function () {validateSettings(true);};
   document.getElementById('toggleSettings').onclick = function () {resizeSettings(false);};
   document.getElementById('ifCorrect').onchange = function () {customPageDiv();};
   document.getElementById('fontFamily').onchange = function () {changeFontFamily();};
   document.getElementById('characterSet').onchange = function () {changeCharacterSet();};
   document.getElementById('theme').onchange = function () {changeTheme();};
   document.getElementById('resetToDefaults').onclick = function () {clearCookies();checkCookie();};
-  document.getElementById("minFrame").onblur = function () {validateSettings(0);};
-  document.getElementById("maxFrame").onblur = function () {validateSettings(0);};
-  document.getElementById("ifCorrect").onblur = function () {validateSettings(0);};
-  document.getElementById("ifIncorrect").onblur = function () {validateSettings(0);};
-  document.getElementById("attempts").onblur = function () {validateSettings(0);};
-  document.getElementById("delay").onblur = function () {validateSettings(0);};
-  document.getElementById("customPage").onblur = function () {validateSettings(0);};
-  document.getElementById("fontFamily").onblur = function () {validateSettings(0);};
-  document.getElementById("fontFamilyInput").onblur = function () {validateSettings(0);};
-  document.getElementById("characterSet").onblur = function () {validateSettings(0);};
-  document.getElementById("theme").onblur = function () {validateSettings(0);};
+  document.getElementById("minFrame").onblur = function () {validateSettings(false);};
+  document.getElementById("maxFrame").onblur = function () {validateSettings(false);};
+  document.getElementById("ifCorrect").onblur = function () {validateSettings(false);};
+  document.getElementById("ifIncorrect").onblur = function () {validateSettings(false);};
+  document.getElementById("attempts").onblur = function () {validateSettings(false);};
+  document.getElementById("delay").onblur = function () {validateSettings(false);};
+  document.getElementById("customPage").onblur = function () {validateSettings(false);};
+  document.getElementById("fontFamily").onblur = function () {validateSettings(false);};
+  document.getElementById("fontFamilyInput").onblur = function () {validateSettings(false);};
+  document.getElementById("characterSet").onblur = function () {validateSettings(false);};
+  document.getElementById("theme").onblur = function () {validateSettings(false);};
   $("#kanji-input").focus();
   checkCookie();
-  validateSettings(1);
 }
 
 window.onload = setTimeout(setup, 1);
