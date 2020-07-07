@@ -24,7 +24,11 @@
 
 ## Demo
 
+Test the kanji quiz without adding it as an extension:
+
 https://eyl327.github.io/kanjitab/extension/
+
+See below for extension installation instruction.
 
 # Readme from original project
 
