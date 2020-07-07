@@ -10,7 +10,7 @@
   * Katakana with Digraphs
   * RTK 6th edition Kanji translations
   * RTK 6th edition Kanji Kunyomi/Onyomi reading
-* Specify range of Kanji to include in quiz
+* Specify range of Kanji to include in the quiz
 * Options for correct answer action:
   * Redirect to Google
   * Redirect to custom URL
