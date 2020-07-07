@@ -2,14 +2,25 @@
 
 ## My additions
 
-* Option to quiz on
+* Accesssible settings
+* Option to quiz on your choice of character sets:
   * Hiragana
   * Hiragana with Digraphs
   * Katakana
   * Katakana with Digraphs
-  * RTK Kanji translations
-  * RTK Kanji Kunyomi/Onyomi reading
-* Dark mode option
+  * RTK 6th edition Kanji translations
+  * RTK 6th edition Kanji Kunyomi/Onyomi reading
+* Specify range of Kanji to include in quiz
+* Options for correct answer action:
+  * Redirect to Google
+  * Redirect to custom URL
+  * Show another character
+* Options for incorrect answer action:
+  * Close tab
+  * Show answer
+* Choose the number of incorrect attempts allowed before action occurs
+* Choose a custom font for displaying characters
+* Dark theme option
 
 ## Demo
 
