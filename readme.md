@@ -1,5 +1,16 @@
 # Kanjitab
 
+## My additions
+
+* Option to quiz on
+* * Hiragana
+* * Hiragana with Digraphs
+* * Katakana
+* * Katakana with Digraphs
+* * RTK Kanji translations
+* * RTK Kanji Kunyomi/Onyomi reading
+* Dark mode option
+
 ## Demo
 
 https://eyl327.github.io/kanjitab/extension/
