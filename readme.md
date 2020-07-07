@@ -4,7 +4,7 @@
 
 https://eyl327.github.io/kanjitab/extension/
 
-#Readme from [datamimi's kanjitab](https://github.com/datamimi/kanjitab)
+# Readme from [datamimi's kanjitab](https://github.com/datamimi/kanjitab)
 
 ## What's this?
 
