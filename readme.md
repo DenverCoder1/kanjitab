@@ -1,3 +1,7 @@
+## Demo
+
+https://eyl327.github.io/kanjitab/extension/
+
 ## What's this?
 
 I'm pretty bad at making time to practise kana as part of my daily routine, so I built a browser extension to help with that. This Chrome extension displays a randomly selected kana when a new
